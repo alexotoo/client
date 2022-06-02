@@ -7,9 +7,9 @@ import {
 import { useAppContext } from "../context/contextApp";
 
 const ShowAlert = () => {
-  const { alertStatus, alertText, alertTitle } = useAppContext();
+  const { alertType, alertText, alertTitle } = useAppContext();
   return (
-    <Alert status={alertStatus}>
+    <Alert status={alertType}>
       <AlertIcon />
       <AlertTitle mr={2}>{alertTitle}</AlertTitle>
       <AlertDescription>{alertText}</AlertDescription>

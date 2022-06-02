@@ -69,7 +69,7 @@ export default function Home() {
               Persistence and determination alone are omnipotent. The slogan
               press on has solved and will always solve the problems of the
               human race. {""}
-              <FaQuoteRight className="icons" /> — Calvin Coolidge
+              <FaQuoteRight className="icons" /> — Calvin Coolidge.
             </Text>
             <Stack spacing={6} direction={"row"}>
               <Button

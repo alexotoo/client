@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import {
   Flex,
   Box,
@@ -26,12 +27,16 @@ const initialState = {
   confirmPassword: "",
   isMember: false,
 };
-
 //app starts here
 const register = () => {
+  const router = useRouter();
   const [values, setValues] = useState(initialState);
   const [labelTitle, setLabelTitle] = useState("");
-  const { isLoading, showAlert, displayAlert } = useAppContext();
+
+  const { isLoading, showAlert, displayAlert, registerUser, user, loginUser } =
+    useAppContext();
+
+  console.log(user, isLoading, showAlert);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -49,12 +54,26 @@ const register = () => {
       displayAlert();
       return;
     }
-    console.log(values);
+
+    const currentUser = { name, email, password };
+    if (isMember) {
+      loginUser(currentUser);
+    } else {
+      registerUser(currentUser);
+    }
   };
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 3000);
+    }
+  }, [user]);
 
   return (
     <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"color.800"}>
@@ -128,6 +147,7 @@ const register = () => {
                 <Button
                   bg="color.600"
                   color={"white"}
+                  disabled={isLoading}
                   _hover={{
                     bg: "color.700",
                   }}
